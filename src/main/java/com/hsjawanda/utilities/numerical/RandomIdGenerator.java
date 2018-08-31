@@ -18,9 +18,13 @@ public class RandomIdGenerator {
 
 	public static final char[] CHAR_POOL = new char[60];
 
+	public static final int MAX_BITS = 128;
+
 	public static final int MAX_PIN_CHARS = 20;
 
 	public static final int MAX_RADIX = 64;
+
+	public static final int MIN_BITS = 2;
 
 	public static final int MIN_PIN_CHARS = 2;
 
@@ -55,12 +59,12 @@ public class RandomIdGenerator {
 	}
 
 	public static String custom(int numBits) throws IllegalArgumentException {
-		checkArgument(numBits >= 2, "numBits must be >= 2");
 		return CONVERTER.encode(customNumber(numBits), MAX_RADIX);
 	}
 
 	public static BigInteger customNumber(int numBits) throws IllegalArgumentException {
-		checkArgument(numBits >= 2, "numBits must be >= 2");
+		checkArgument(numBits >= MIN_BITS, "numBits must be >= ", MIN_BITS);
+		checkArgument(numBits <= MAX_BITS, "numBits must be <= ", MAX_BITS);
 		return new BigInteger(numBits, RANDOMIZER);
 	}
 
