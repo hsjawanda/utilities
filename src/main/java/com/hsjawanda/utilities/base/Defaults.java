@@ -3,31 +3,48 @@
  */
 package com.hsjawanda.utilities.base;
 
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-
 /**
- * @author harsh.deep
+ * @author Harshdeep S Jawanda <hsjawanda@gmail.com>
  *
  */
-public class Defaults {
+public final class Defaults {
 
-	public static final SimpleDateFormat dateFmt = new SimpleDateFormat(
-			"EEE dd MMM yyyy HH:mm:ss.SSS zzz");
-
-	public static final double geoSearchRadius = 16093;
-
-	public static final int itemsPerPage = 10;
-
-	public static final int pgNum = 1;
-
-	private static Logger LOG = Logger.getLogger(Defaults.class.getName());
+	private static Logger LOG;
 
 	private Defaults() {
+	}
+
+	@CheckForNull
+	public static Boolean asBoolean(String boolString) {
+		return null == boolString ? null : Boolean.valueOf(boolString);
+	}
+
+	public static boolean asBoolean(String boolString, boolean defaultVal) {
+		return null != boolString ? Boolean.valueOf(boolString).booleanValue() : defaultVal;
+	}
+
+	public static double asDouble(Double value, double defaultVal) {
+		return null == value ? defaultVal : value.doubleValue();
+	}
+
+	public static Double asDouble(String doubleStr, double defaultVal) {
+		try {
+			return Double.parseDouble(doubleStr);
+		} catch (Exception e) {
+			if (e instanceof NumberFormatException) {
+				log().warning(e.getMessage());
+			} else {
+				log().log(Level.WARNING, "Couldn't parse '" + doubleStr + "' as a valid double. Returned default.",
+						e);
+			}
+		}
+		return defaultVal;
 	}
 
 	public static int asInt(Integer input, int defaultVal) {
@@ -39,25 +56,26 @@ public class Defaults {
 			try {
 				return ((Integer) obj).intValue();
 			} catch (Exception e) {
-				LOG.log(Level.WARNING, "Error getting int value from Object", e);
+				log().log(Level.WARNING, "Error getting int value from Object. Returning default.", e);
 			}
 		}
 		return defaultValue;
 	}
 
 	public static int asInt(String intString, int defaultVal) {
-		if (null == intString)
-			return defaultVal;
-		try {
-			return Integer.parseInt(intString);
-		} catch (Exception e) {
-			if (e instanceof NumberFormatException) {
-				LOG.warning(e.getMessage());
-			} else {
-				LOG.log(Level.WARNING, "Couldn't parse <" + intString + "> as a valid number. Returned default.", e);
+		if (null != intString) {
+			try {
+				return Integer.parseInt(intString);
+			} catch (Exception e) {
+				if (e instanceof NumberFormatException) {
+					log().warning(e.getMessage());
+				} else {
+					log().log(Level.WARNING, "Couldn't parse '" + intString + "' as a valid number. Returned default.",
+							e);
+				}
 			}
-			return defaultVal;
 		}
+		return defaultVal;
 	}
 
 	public static long asLong(Long value, long defaultVal) {
@@ -65,30 +83,39 @@ public class Defaults {
 	}
 
 	public static long asLong(String longString, long defaultVal) {
-		if (null == longString)
-			return defaultVal;
-		try {
-			return Long.parseLong(longString);
-		} catch (Exception e) {
-			if (e instanceof NumberFormatException) {
-				LOG.warning(e.getMessage());
-			} else {
-				LOG.log(Level.WARNING, "Couldn't parse <" + longString + "> as a valid number. Returned default.", e);
+		if (null != longString) {
+			try {
+				return Long.parseLong(longString);
+			} catch (Exception e) {
+				if (e instanceof NumberFormatException) {
+					log().warning(e.getMessage());
+				} else {
+					log().log(Level.WARNING, "Couldn't parse '" + longString + "' as a valid number. Returned default.",
+							e);
+				}
 			}
-			return defaultVal;
 		}
+		return defaultVal;
 	}
 
 	/**
 	 * Return a default value if the input object is {@code null}.
 	 *
-	 * @param obj the input object
-	 * @param defaultValue the default value to use
+	 * @param obj
+	 *            the input object
+	 * @param defaultValue
+	 *            the default value to use
 	 * @return {@code obj} if it is not-null, {@code defaultValue} otherwise
 	 */
-//	@SuppressWarnings("null")
 	@Nonnull
 	public static <T> T or(T obj, @Nonnull T defaultValue) {
 		return null == obj ? defaultValue : obj;
+	}
+
+	private static Logger log() {
+		if (null == LOG) {
+			LOG = Logger.getLogger(Defaults.class.getName());
+		}
+		return LOG;
 	}
 }

@@ -3,8 +3,8 @@
  */
 package com.hsjawanda.utilities.base;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.hsjawanda.utilities.repackaged.commons.lang3.StringUtils;
@@ -19,7 +19,7 @@ public class PropertyValues {
 
 	private static final String NL = System.lineSeparator();
 
-	private Map<String, Object> properties = new TreeMap<>();
+	private Map<String, Object> properties = new LinkedHashMap<>();
 
 	private String separator = ": ";
 
@@ -63,6 +63,11 @@ public class PropertyValues {
 			this.properties.put(property, value);
 		}
 		return this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> T get(String property) {
+		return (T) this.properties.get(property);
 	}
 
 	public Map<String, Object> getProperties() {

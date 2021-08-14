@@ -4,6 +4,7 @@
 package com.hsjawanda.utilities.collections;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -46,6 +47,24 @@ public class FluentMap<K, V> {
 		return modMap;
 	}
 
+	public static <K, V> FluentMap<K, V> from(Map<K, V> source) throws NullPointerException {
+		FluentMap<K, V> retMap;
+		Class<?> sourceClass = source.getClass();
+		if (TreeMap.class.isAssignableFrom(sourceClass)) {
+			retMap = create(KeyOrdering.SORTED);
+		} else if (LinkedHashMap.class.isAssignableFrom(sourceClass)) {
+			retMap = create(KeyOrdering.IN_ORDER);
+		} else {
+			retMap = create(KeyOrdering.NONE);
+		}
+		if (null != source) {
+			for (K key : source.keySet()) {
+				retMap.put(key, source.get(key));
+			}
+		}
+		return retMap;
+	}
+
 	public boolean containsKey(K key) {
 		return this.map.containsKey(key);
 	}
@@ -60,6 +79,10 @@ public class FluentMap<K, V> {
 
 	public V get(K key) {
 		return this.map.get(key);
+	}
+
+	public Map<K, V> map() {
+		return Collections.unmodifiableMap(this.map);
 	}
 
 	public V getOrDefault(K key, V defaultValue) {
