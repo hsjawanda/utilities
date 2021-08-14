@@ -29,12 +29,12 @@ public final class Lists {
 	}
 
 	/**
-	 * Return the first element in a list if possible, {@code null} otherwise. Performs {@code null}-checking and
-	 * {@code List} size checking.
+	 * Return the first element in a list if possible, {@code null} otherwise.
+	 * Performs {@code null}-checking and {@code List} size checking.
 	 *
-	 * @param list
-	 *            the {@code List} to return the element from.
-	 * @return the first element or {@code null} (if the {@code List} is {@code null} or empty).
+	 * @param list the {@code List} to return the element from.
+	 * @return the first element or {@code null} (if the {@code List} is
+	 *         {@code null} or empty).
 	 */
 	public static <T> T get(List<T> list) {
 		return get(list, 0, null);
@@ -43,28 +43,34 @@ public final class Lists {
 	/**
 	 * Return the element at {@code index} if possible, {@code null} otherwise.
 	 *
-	 * @param list
-	 *            the {@code List} to return the element from
-	 * @param index
-	 *            the index in the {@code List} from where to return the element
-	 * @return the element at {@code index} or {@code null} (if the {@code List} is {@code null} or {@code index} is out
-	 *         of bounds)
+	 * @param list  the {@code List} to return the element from
+	 * @param index the index in the {@code List} from where to return the element
+	 * @return the element at {@code index} or {@code null} (if the {@code List} is
+	 *         {@code null} or {@code index} is out of bounds)
 	 */
 	public static <T> T get(List<T> list, int index) {
 		return get(list, index, null);
 	}
 
+	public static <T> boolean isEmpty(List<T> list) {
+		return null == list || list.size() == 0;
+	}
+
+	public static <T> boolean isNotEmpty(List<T> list) {
+		return !isEmpty(list);
+	}
+
 	/**
-	 * Return the element at index {@code index} if possible, {@code defaultValue} otherwise.
+	 * Return the element at index {@code index} if possible, {@code defaultValue}
+	 * otherwise.
 	 *
-	 * @param list
-	 *            the {@code List} to return the element from
-	 * @param index
-	 *            the index in the {@code List} from where to return the element
-	 * @param defaultValue
-	 *            the value to return in case the element at {@code index} can't be retrieved.
-	 * @return the element at {@code index} or {@code defaultValue} (if the {@code List} is {@code null} or the
-	 *         {@code index} is out of bounds.)
+	 * @param list         the {@code List} to return the element from
+	 * @param index        the index in the {@code List} from where to return the
+	 *                     element
+	 * @param defaultValue the value to return in case the element at {@code index}
+	 *                     can't be retrieved.
+	 * @return the element at {@code index} or {@code defaultValue} (if the
+	 *         {@code List} is {@code null} or the {@code index} is out of bounds.)
 	 */
 	public static <T> T get(List<T> list, int index, T defaultValue) {
 		if (null != list && index >= 0 && index < list.size())
@@ -77,10 +83,11 @@ public final class Lists {
 	}
 
 	/**
-	 * Instantiate and return a new {@link ArrayList} containing the elements passed as arguments. The elements appear
-	 * in the same order as the arguments.
+	 * Instantiate and return a new {@link ArrayList} containing the elements passed
+	 * as arguments. The elements appear in the same order as the arguments.
 	 *
-	 * @param elements the elements to add to the {@code List}. Can be empty or {@code null}
+	 * @param elements the elements to add to the {@code List}. Can be empty or
+	 *                 {@code null}
 	 * @return the newly instantiated array (never {@code null})
 	 */
 	@SafeVarargs
@@ -96,10 +103,11 @@ public final class Lists {
 	}
 
 	/**
-	 * Instantiate and return a new {@link ArrayList} containing the elements passed as arguments. The elements appear
-	 * in the same order as the arguments.
+	 * Instantiate and return a new {@link ArrayList} containing the elements passed
+	 * as arguments. The elements appear in the same order as the arguments.
 	 *
-	 * @param elements the elements to add to the {@code List}. Can be empty or {@code null}
+	 * @param elements the elements to add to the {@code List}. Can be empty or
+	 *                 {@code null}
 	 * @return the newly instantiated array (never {@code null})
 	 */
 	@SafeVarargs
