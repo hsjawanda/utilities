@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Generated;
+// import javax.annotation.Generated;
 import javax.annotation.Nullable;
 
 /**
@@ -41,7 +41,7 @@ public class PrintableTable {
 	private PrintableTable() {
 	}
 
-	@Generated("SparkTools")
+	// @Generated("SparkTools")
 	private PrintableTable(Builder builder) {
 		this.hasHeaderRow = builder.hasHeaderRow;
 		this.separator = builder.separator;
@@ -52,7 +52,7 @@ public class PrintableTable {
 	 * Creates builder to build {@link PrintableTable}.
 	 * @return created builder
 	 */
-	@Generated("SparkTools")
+	// @Generated("SparkTools")
 	public static Builder builder() {
 		return new Builder();
 	}
@@ -143,7 +143,7 @@ public class PrintableTable {
 	/**
 	 * Builder to build {@link PrintableTable}.
 	 */
-	@Generated("SparkTools")
+	// @Generated("SparkTools")
 	public static final class Builder {
 
 		private boolean hasHeaderRow;
