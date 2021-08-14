@@ -2,6 +2,7 @@
 # Eclipse
 .classpath
 .project
+.vscode
 .settings/
 
 # Intellij
